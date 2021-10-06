@@ -1,0 +1,17 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: opa-gatekeeper-listener
+spec:
+  serviceAccountName: flux-notifications-sa
+  #serviceAccountName: tekton-tester
+  triggers:
+    - name: opa-gatekeeper-notification-trigger
+      interceptors:
+        - cel:
+            filter: header.canonical('Gotk-Component') == 'source-controller' &&
+              body.involvedObject.kind == 'GitRepository'
+      template:
+        ref: opa-gatekeeper-notification-template
+      bindings:
+        - ref: opa-gatekeeper-notification-binding

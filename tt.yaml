@@ -1,0 +1,30 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: opa-gatekeeper-notification-template
+spec:
+  params:
+    - name: message
+      description: message
+    - name: repository
+      description: the notifying repository
+    - name: namespace
+      description: the namespace for the notifying repository
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1alpha1
+      kind: PipelineRun
+      metadata:
+        annotations:
+        name: opa-gate-run-$(uid)
+      spec:
+        expirationSecondsTTL: 300
+        params:
+          - name: message
+            value: $(tt.params.message)
+          - name: repository
+            value: $(tt.params.repository)
+          - name: namespace
+            value: $(tt.params.namespace)
+        #serviceAccountName: flux-notifications-sa
+        pipelineRef:
+          name: opa-gatekeeper-pipeline
