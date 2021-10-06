@@ -3,6 +3,7 @@ kind: Pipeline
 metadata:
   name: opa-gatekeeper-pipeline
 spec:
+  expirationSecondsTTL: 300
   params:
     - name: message
       description: incoming notification message

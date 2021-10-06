@@ -17,7 +17,6 @@ spec:
         annotations:
         name: opa-gate-run-$(uid)
       spec:
-        expirationSecondsTTL: 300
         params:
           - name: message
             value: $(tt.params.message)
@@ -28,3 +27,4 @@ spec:
         #serviceAccountName: flux-notifications-sa
         pipelineRef:
           name: opa-gatekeeper-pipeline
+        expirationSecondsTTL: 300
