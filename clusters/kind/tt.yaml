@@ -27,4 +27,4 @@ spec:
         #serviceAccountName: flux-notifications-sa
         pipelineRef:
           name: opa-gatekeeper-pipeline
-        expirationSecondsTTL: 300
+        #expirationSecondsTTL: 300
