@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: cleanup-pipelineruns
 spec:
-  schedule: "*/30 * * * *"
+  schedule: "*/5 * * * *"
   failedJobsHistoryLimit: 0
   successfulJobsHistoryLimit: 0
   jobTemplate:
@@ -17,5 +17,5 @@ spec:
               - 'kubectl'
               - 'delete'
               - 'pod'
-              - '--field-selector=status.phase=Completed'
+              - '--field-selector=status.phase=Succeeded'
           restartPolicy: Never
